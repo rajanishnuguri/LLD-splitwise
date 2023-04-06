@@ -1,7 +1,10 @@
 package com.rajanish.splitwise.models;
 
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,9 +13,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="sp_users")
+@Table(name="sp_users",
+        uniqueConstraints={
+                @UniqueConstraint(columnNames = "phone_number"),
+                @UniqueConstraint(columnNames = "user_name")
+        }
+)
 public class Users extends BaseModel{
+    @Column(name="user_name")
     private String userName;
+    @Column(name="phone_number")
     private String phoneNumber;
     private String hashedPassword;
 
